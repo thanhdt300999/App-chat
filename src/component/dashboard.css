@@ -1,6 +1,4 @@
 .header {
-
-
   height: 80px;
   background-color: white;
 }
@@ -45,9 +43,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
-
 
 .contact {
   margin-left: 10px;
@@ -64,18 +60,22 @@
 }
 
 .searchBox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50px !important; 
 }
 .input-group-text {
-    padding: 0.75rem !important;
+  padding: 0.75rem !important;
 }
 
-
+#inputSearch {
+  border: none !important;
+  padding-left: 20px;
+}
 .userAccount {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
 }

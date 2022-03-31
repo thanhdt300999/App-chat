@@ -40,12 +40,11 @@ const DashBoard = () => {
         </div>
         <div className="searchBox col-md-8">
           <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <BiSearch color={"#6cb7f0"} size={"30"} />
-              </div>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <BiSearch color={"#6cb7f0"} size={"30"} />
             </div>
             <input
+                id="inputSearch"
               type="text"
               class="form-control shadow-none"
               aria-label="Text input with checkbox"
@@ -54,13 +53,18 @@ const DashBoard = () => {
           </div>
         </div>
         <div className="userAccount col-md-2">
-          <div>
-            <MdOutlineNotifications size={"25"} />
+          <div style={{ marginRight: "20px" }}>
+            <MdOutlineNotifications
+              size={"25"}
+              style={{ marginRight: "30px" }}
+              color={"blue"}
+            />
             <img
               src={require("./ny.jpg")}
-              width={40}
-              height={40}
-              style={{ borderRadius: "20px" }}
+              width={"46px"}
+
+              height={"46px"}
+              style={{ borderRadius: "23px" }}
             />
           </div>
           <div>

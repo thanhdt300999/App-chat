@@ -39,3 +39,11 @@ body, html, #root {
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'Carmen Sans';
+  src: local('Carmen Sans Medium'), local('Carmen-Sans-Medium'),
+      url('CarmenSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}

@@ -1,0 +1,81 @@
+.header {
+
+
+  height: 80px;
+  background-color: white;
+}
+.container-fluid {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f2f5ff;
+}
+.body {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  flex: 1;
+}
+
+.menuBar,
+.chatList,
+.chatContent,
+.infoUser {
+  border-radius: 15px;
+  background-color: white !important;
+  display: flex;
+  justify-content: center;
+}
+.menuBar {
+  width: 300px;
+  height: inherit;
+}
+.chatList {
+  width: 300px;
+}
+.chatContent {
+  width: 750px;
+}
+.infoUser {
+  width: 300px;
+}
+
+.logoApp {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+
+.contact {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  border-radius: 10px;
+  margin-right: 5px;
+  margin-left: 15px;
+}
+.btn-dropdown {
+  align-self: flex-end;
+}
+
+.searchBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-group-text {
+    padding: 0.75rem !important;
+}
+
+
+.userAccount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}

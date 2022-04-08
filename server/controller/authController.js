@@ -17,7 +17,6 @@ const registerUser = asyncHandler(async (req, res) => {
             message: "Email is exists"
         })
     }
-    console.log(password)
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt)
     

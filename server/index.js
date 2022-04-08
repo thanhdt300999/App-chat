@@ -8,6 +8,7 @@ const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middlewares/errorHandle');
 const dashBoardRouter = require("./router/admin")
 const authRouter = require("./router/auth")
+const userRouter = require("./router/user")
 //=======================================
 // MongoClient.connect(process.env.DATABASE, (err, db) => {
 //     if (err) {
@@ -39,7 +40,7 @@ app.use(express.json())
 
 
 app.use("/auth", authRouter)
-
+app.use("/users", userRouter)
 app.use(notFound)
 app.use(errorHandler)
 

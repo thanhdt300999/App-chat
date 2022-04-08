@@ -3,6 +3,7 @@ const User = require("../models/UserModel");
 const bcrypt = require("bcryptjs")
 const { generateToken } = require("../config/helper")
 const registerUser = asyncHandler(async (req, res) => {
+    console.log(req.body)
     const { name, email, password, pic } = req.body
     if (!name || !email || !password) {
         res.status(400).json({
@@ -53,7 +54,7 @@ const loginUser = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(400).json({
-            message: "haha"
+            message: "Login failed"
         })
     }
 })

@@ -1,6 +1,9 @@
-const { getAllUser } = require("../controller/userController");
-
 const router = require("express").Router();
+const { accessChat } = require("../controller/chatController");
 const { auth } = require("../middlewares/authMiddleware")
-router.post("/", auth, getAllUser);
+
+router.post("/", auth, accessChat);
+
+
+
 module.exports = router;

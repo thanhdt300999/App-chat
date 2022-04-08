@@ -3,22 +3,21 @@ require("dotenv").config();
 const http = require("http")
 const app = express()
 const server = http.createServer(app);
-const { MongoClient } = require('mongodb');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middlewares/errorHandle');
-const dashBoardRouter = require("./router/admin")
-const authRouter = require("./router/auth")
-const userRouter = require("./router/user")
+const authRoutes = require("./router/auth")
+const userRoutes = require("./router/user")
+const adminRoutes = require("./router/admin")
+const chatRoutes = require("./router/chat")
+
 //=======================================
-// MongoClient.connect(process.env.DATABASE, (err, db) => {
-//     if (err) {
-//         console.log("Connection failed");
-//     } else {
-//         console.log("Connection success to MongoDb")
-//     }
-// })
+//connect dB
+
 connectDB(); 
+
+
 //=======================================
+//connect socket
 const socketIo = require("socket.io")(server, {
     cors: {
         origin: '*'
@@ -39,8 +38,15 @@ socketIo.on("connection", (socket) => {
 app.use(express.json())
 
 
-app.use("/auth", authRouter)
-app.use("/users", userRouter)
+//router
+app.use("/", adminRoutes)
+app.use("/auth", authRoutes)
+app.use("/users", userRoutes)
+app.use("/chat", chatRoutes)
+
+
+//=======================================
+//error handle
 app.use(notFound)
 app.use(errorHandler)
 

@@ -1,19 +1,22 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/UserModel");
-
-const getAllUser = asyncHandler( async (req, res) => {
-  const { search } = req.query;
+const { generateToken } = require("../config/helper")
+const getAllUser = asyncHandler(async (req, res) => {
+    const { search } = req.query;
     const query = search ? {
         $or: [
-            {name: {$regex: search, $option: "i"}},
-            {email: {$regex: search, $option: "i"}}
+            { name: { $regex: search, $options: "i" } },
+            { email: { $regex: search, $options: "i" } }
         ]
     } : {}
 
-    const users = await User.find(query).find({_id: {$ne: req.user._id}})
-    if(user) {
+    const users = await User.find(query).select("-password");
+    if (users) {
         res.status(200).json({
-            users: users
+            users: {
+                ...users,
+                token: generateToken(users._id)
+            }
         })
     } else {
         res.status(400).json({

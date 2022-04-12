@@ -60,7 +60,6 @@ const DashBoard = () => {
               color={"blue"}
             />
             <img
-             
               width={"46px"}
               height={"46px"}
               style={{ borderRadius: "23px" }}

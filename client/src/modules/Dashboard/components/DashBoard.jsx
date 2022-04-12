@@ -2,6 +2,7 @@ import React from "react";
 
 import { AiOutlineDown } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
+import './dashboard.css'
 import { MdOutlineNotifications } from "react-icons/md";
 const DashBoard = () => {
   return (

@@ -2,8 +2,21 @@ import React from "react";
 import "./Login.css";
 import { AiOutlineMail, AiFillLock, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-const LoginForm = ({handleLogin}) => {
+const LoginForm = ({}) => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const handleLogin = (data) => {
+    console.log(data)
+    localStorage.setItem("accessToken", true);
+    navigate("/dashboard");
+  };
   return (
     <div className="form-contain">
       <div className="login_title">
@@ -21,6 +34,7 @@ const LoginForm = ({handleLogin}) => {
                 class="form-control input_login shadow-none "
                 placeholder="Email"
                 aria-label="Email"
+                {...register("email")}
               />
             </div>
           </div>
@@ -34,6 +48,7 @@ const LoginForm = ({handleLogin}) => {
                 class="form-control input_login shadow-none"
                 placeholder="Password"
                 aria-label="Password"
+                {...register("password")}
               />
             </div>
           </div>
@@ -49,7 +64,7 @@ const LoginForm = ({handleLogin}) => {
         >
           <button
             type="button"
-            onClick={handleLogin}
+            onClick={handleSubmit(handleLogin)}
             class="btn btn-success btn-login"
           >
             <span style={{ fontSize: "20px" }}>Login</span>
@@ -79,4 +94,4 @@ const LoginForm = ({handleLogin}) => {
   );
 };
 
-export default LoginForm
+export default LoginForm;

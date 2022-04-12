@@ -5,7 +5,7 @@ const Layout = () => {
   const navigate = useNavigate();
   const handleSignOut = () => {
     localStorage.removeItem("accessToken", false);
-    navigate("/login");
+    navigate("/auth/login");
   };
   return (
     <>

@@ -71,7 +71,7 @@ const LoginForm = ({handleLogin}) => {
       </div>
       <div className="login_footer">
         <span>Not a member ?</span> &nbsp;
-        <Link to="/login/signup" style={{ textDecoration: "underline" }}>
+        <Link to="/auth/signup" style={{ textDecoration: "underline" }}>
           Sign up now
         </Link>
       </div>

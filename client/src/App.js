@@ -1,16 +1,16 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import LoginScreen from "./components/Auth/Login";
+import Layout from "./modules/Layout/components/Layout";
+import LoginScreen from "./modules/Auth/Login";
 import './App.css'
-import User from "./components/User";
+import User from "./modules/User";
 import { PrivateRoute } from "./route/PrivateRoute";
-import DashBoard from "./components/Dashboard/DashBoard";
+import DashBoard from "./modules/Dashboard/DashBoard";
 const App = () => {
   return (
     <Routes>
       <Route
-        path="/"
+        path="/*"
         element={
           <PrivateRoute>
             <Layout />
@@ -34,7 +34,7 @@ const App = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/login" element={<LoginScreen />} />
+      <Route path="/auth/*" element={<LoginScreen />} />
     </Routes>
   );
 };

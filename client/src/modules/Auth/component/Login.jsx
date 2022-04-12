@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, Route, Router, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import "./Login.css";
+import '../Login.css'
 import { AiOutlineMail, AiFillLock, AiFillFacebook } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
+import LoginForm from "../LoginForm";
+import SignupForm from "../SignupForm";
 const LoginScreen = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
@@ -14,7 +14,7 @@ const LoginScreen = () => {
   };
   return (
     <div className="login_container">
-      <Router>
+      <Routes>
         <Route
           path="/login"
           element={<LoginForm handleLogin={handleLogin} />}
@@ -23,7 +23,7 @@ const LoginScreen = () => {
           path="/signup"
           element={<SignupForm />}
         />
-      </Router>
+      </Routes>
     </div>
   );
 };

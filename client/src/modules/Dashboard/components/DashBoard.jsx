@@ -1,5 +1,5 @@
 import React from "react";
-import "./dashboard.css";
+
 import { AiOutlineDown } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { MdOutlineNotifications } from "react-icons/md";
@@ -44,7 +44,7 @@ const DashBoard = () => {
               <BiSearch color={"#6cb7f0"} size={"30"} />
             </div>
             <input
-                id="inputSearch"
+              id="inputSearch"
               type="text"
               class="form-control shadow-none"
               aria-label="Text input with checkbox"
@@ -60,9 +60,8 @@ const DashBoard = () => {
               color={"blue"}
             />
             <img
-              src={require("./ny.jpg")}
+             
               width={"46px"}
-
               height={"46px"}
               style={{ borderRadius: "23px" }}
             />

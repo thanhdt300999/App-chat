@@ -1,22 +1,20 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const {Schema} = require("mongoose");
 
 const userSchema = mongoose.Schema(
   {
-    name: { type: "String", required: true },
     email: { type: "String", unique: true, required: true },
     password: { type: "String", required: true },
-    pic: {
-      type: "String",
-      required: true,
-      default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+    cartId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Cart',
+        default: null
     },
-    isAdmin: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
+    cancelCount: {
+      type: 'Number',
+      default: 3,
+    }
   },
   { timestaps: true }
 );

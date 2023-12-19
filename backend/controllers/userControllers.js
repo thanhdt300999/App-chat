@@ -23,13 +23,16 @@ const allUsers = asyncHandler(async (req, res) => {
 //@route           POST /api/user/
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
+  const { name, password } = req.body;
+  console.log(name,  password)
+  console.log(!name)
+  console.log(!password)
+  if (!name || !password) {
     res.status(400);
     throw new Error("Please Enter all the Feilds");
   }
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ name });
 
   if (userExists) {
     res.status(400);
@@ -37,14 +40,14 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.create({
-    email,
+    name,
     password,
   });
 
   if (user) {
     res.status(201).json({
       _id: user._id,
-      email: user.email,
+      name: user.name,
       token: generateToken(user._id),
       cancelCount: user.cancelCount,
       cartId: user.cartId

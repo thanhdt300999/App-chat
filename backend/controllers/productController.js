@@ -19,7 +19,7 @@ const Product = require("../models/product.Model");
 //@route           POST /api/user/
 //@access          Public
 const createProduct = asyncHandler(async (req, res) => {
-  const { name, description, stock, image, author, type, price } = req.body;
+  const { name, description, stock, image, author, type, price, salePercent } = req.body;
   console.log(req.body);
   if (!name || !description || !stock || !author || !type || !price) {
     res.status(400);
@@ -33,7 +33,8 @@ const createProduct = asyncHandler(async (req, res) => {
     image,
     author,
     type,
-    price
+    price,
+    salePercent
   });
 
   if (product) {
@@ -56,24 +57,37 @@ const createProduct = asyncHandler(async (req, res) => {
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
-const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  console.log(email)
-  const user = await User.findOne({ email });
+const getAllProduct = asyncHandler(async (req, res) => {
+  const { keyword, type, author, minPrice, maxPrice } = req.query;
 
-  if (user && (await user.matchPassword(password))) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      pic: user.pic,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(401);
-    throw new Error("Invalid Email or Password");
+  let query = {
+    ...(keyword && {name: keyword}),
+    ...(type && {type: type}),
+    ...(author && {type: author}),
+    ...(minPrice && maxPrice && {price: {$gt: maxPrice, $lt: minPrice}}),
   }
+
+  try {
+    const products = await Product.find({...query})
+    res.json({products})
+  } catch (e) {
+    res.json({
+      message: e
+    })
+  }
+  // if (user && (await user.matchPassword(password))) {
+  //   res.json({
+  //     _id: user._id,
+  //     name: user.name,
+  //     email: user.email,
+  //     isAdmin: user.isAdmin,
+  //     pic: user.pic,
+  //     token: generateToken(user._id),
+  //   });
+  // } else {
+  //   res.status(401);
+  //   throw new Error("Invalid Email or Password");
+  // }
 });
 
-module.exports = { createProduct, authUser };
+module.exports = { createProduct, getAllProduct };

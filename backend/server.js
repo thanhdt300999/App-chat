@@ -28,7 +28,7 @@ app.use(cors(corsOpts))
 app.use(express.json()); // to accept json data
 
 app.use("/api/user", userRoutes);
-app.use("/api/product", productRoutes);
+app.use("/api/products", productRoutes);
 
 
 // Error Handling middlewares

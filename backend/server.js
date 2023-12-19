@@ -2,6 +2,8 @@ const express = require("express");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
+const productRoutes = require("./routes/productRoute");
+
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
 const cors = require('cors')
@@ -26,6 +28,7 @@ app.use(cors(corsOpts))
 app.use(express.json()); // to accept json data
 
 app.use("/api/user", userRoutes);
+app.use("/api/product", productRoutes);
 
 
 // Error Handling middlewares

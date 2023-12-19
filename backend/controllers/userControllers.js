@@ -24,9 +24,7 @@ const allUsers = asyncHandler(async (req, res) => {
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, password } = req.body;
-  console.log(name,  password)
-  console.log(!name)
-  console.log(!password)
+
   if (!name || !password) {
     res.status(400);
     throw new Error("Please Enter all the Feilds");
@@ -38,12 +36,12 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("User already exists");
   }
-
+  console.log('41')
   const user = await User.create({
     name,
     password,
   });
-
+  console.log(user)
   if (user) {
     res.status(201).json({
       _id: user._id,

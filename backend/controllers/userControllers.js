@@ -68,6 +68,7 @@ const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       token: generateToken(user._id),
+      cartId: user.cartId
     });
   } else {
     res.status(401);

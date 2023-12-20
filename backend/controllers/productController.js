@@ -59,9 +59,9 @@ const createProduct = asyncHandler(async (req, res) => {
 //@access          Public
 const getAllProduct = asyncHandler(async (req, res) => {
   const { keyword, type, author, minPrice, maxPrice } = req.query;
-
+      const keywordQuery = new RegExp(keyword, 'i')
   let query = {
-    ...(keyword && {name: keyword}),
+    ...(keyword && {name: keywordQuery}),
     ...(type && {type: type}),
     ...(author && {type: author}),
     ...(minPrice && maxPrice && {price: {$gt: maxPrice, $lt: minPrice}}),

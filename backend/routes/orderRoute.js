@@ -4,9 +4,8 @@ const {addItemsToCart, getCountCart, getCart, updateCart} = require("../controll
 
 const router = express.Router();
 
-router.post('/add-items', protect , addItemsToCart);
-router.get("/count-cart", protect , getCountCart);
-router.get("/", protect , getCart);
-router.put("/update", protect , updateCart);
+router.post('/checkout', protect , checkoutCart);
+router.put("/change-status", protect , changeStatusOrder);
+router.get("/", protect , viewOrder);
 
 module.exports = router;

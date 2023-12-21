@@ -23,6 +23,18 @@ const productModel = new mongoose.Schema(
       type: Date,
       default: Date.now
     },
+    weight: {
+      type: Number,
+    },
+    length: {
+      type: Number,
+    },
+    width: {
+      type: Number,
+    },
+    height: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );

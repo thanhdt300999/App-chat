@@ -123,4 +123,29 @@ const getCart = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addItemsToCart, getCountCart, getCart };
+const updateCart = asyncHandler(async (req, res) => {
+  const { cartId } = req.query;
+  const { products } = req.body
+  const countCart = products?.reduce((acc, current) => {
+    return acc + current?.quantity
+  }, 0)
+  try {
+    const cart = await Cart.findByIdAndUpdate(cartId, {
+      count: countCart,
+      products: products
+    }, {new: true}).populate({
+      path: 'products.productId'
+    })
+    if (cart) {
+      res.json({
+        cart
+      })
+    }
+  } catch (e) {
+    res.json({
+      message: e
+    })
+  }
+});
+
+module.exports = { addItemsToCart, getCountCart, getCart, updateCart };

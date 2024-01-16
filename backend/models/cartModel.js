@@ -10,15 +10,9 @@ const cartModel = new mongoose.Schema(
       quantity: {type: Number,  required: true}
     }],
     summary: {
-      grandTotal: {
-        type: Number,
-      },
-      subTotal: {
-        type: Number,
-      },
-      discount: {
+      total: {
         type: Number
-      }
+      },
     },
     count: {
       type: Number

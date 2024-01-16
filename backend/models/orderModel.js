@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
-const cartModel = new mongoose.Schema(
+const orderModel = new mongoose.Schema(
     {
       status: {type: String},
+      orderId: {
+        type: Number,
+        default: 1
+      },
       products: [{
         product: {
           type: mongoose.Schema.Types.ObjectId,
@@ -14,6 +18,9 @@ const cartModel = new mongoose.Schema(
       }],
       typeShip: {
         type: String
+      },
+      paymentStatus: {
+        type: Number
       },
       summary: {
         total: {
@@ -31,43 +38,33 @@ const cartModel = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
       },
+      phone: {
+        type: String,
+        required: true
+      },
+      firstName: {
+        type: String,
+        required: true
+      },
+      lastName: {
+        type: String,
+        required: true
+      },
+      note: {
+        type: String,
+      },
       address: {
         province: {
-          ProvinceID: {
-            type: Number
-          },
-          ProvinceName: {
-            type: String
-          },
-          Code: {
-            type: Number
-          },
+          type: String,
+          required: true
         },
         district: {
-          DistrictID: {
-            type: Number
-          },
-          ProvinceID: {
-            type: Number
-          },
-          DistrictName: {
-            type: String
-          },
-          SupportType: {
-            type: Number,
-            enum: [1,2,3,0]
-          },
+          type: String,
+          required: true
         },
         ward: {
-          WardCode: {
-            type: Number
-          },
-          DistrictID: {
-            type: Number
-          },
-          WardName: {
-            type: String
-          }
+          type: String,
+          required: true
         }
       },
 
@@ -75,6 +72,7 @@ const cartModel = new mongoose.Schema(
     { timestamps: true }
 );
 
-const Cart = mongoose.model("Cart", cartModel);
 
-module.exports = Cart;
+const Order = mongoose.model("Order", orderModel);
+
+module.exports = Order;

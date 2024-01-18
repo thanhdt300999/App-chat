@@ -1,9 +1,10 @@
 const StatusOrder = {
   WAITING_SHIPPING: 0,
   SHIPPING: 1,
-  RETURNED: 2,
-  SUCCESS: 3,
-  CANCELED: 4,
+  RECEIVED: 2,
+  CANTCONTACT: 4,
+  CANCELED: 3,
+  RETURN: 5
 }
 
 

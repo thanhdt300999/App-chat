@@ -14,7 +14,12 @@ const userSchema = new mongoose.Schema(
     cancelCount: {
       type: 'Number',
       default: 3,
-    }
+    },
+      isAdmin: {
+        type: String,
+      required: true,
+          default: '0'
+      }
   },
   { timestaps: true }
 );

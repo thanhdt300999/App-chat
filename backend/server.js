@@ -5,6 +5,7 @@ const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoute");
 const cartRoutes = require("./routes/cartRoute");
 const orderRoutes = require("./routes/orderRoute");
+const adminRoutes = require("./routes/adminRoute");
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
@@ -22,6 +23,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/admin", adminRoutes);
+app.use(express.static(__dirname + '/uploads'));// you can access image
 
 
 // Error Handling middlewares

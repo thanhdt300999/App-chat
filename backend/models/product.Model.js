@@ -35,6 +35,9 @@ const productModel = new mongoose.Schema(
     height: {
       type: Number,
     },
+      salePrice: {
+        type: Number
+      }
   },
   { timestamps: true }
 );

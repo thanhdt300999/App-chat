@@ -8,9 +8,9 @@ router.post('/add-items', protect , addItemsToCart);
 router.get("/count-cart", protect , getCountCart);
 router.get("/", protect , getCart);
 router.put("/update", protect , updateCart);
-router.get("/province", protect , getProvince);
-router.get("/district", protect , getDistrict);
-router.get("/ward", protect , getWard);
+router.get("/province" , getProvince);
+router.get("/district" , getDistrict);
+router.get("/ward" , getWard);
 router.get("/caculateShippingFree", protect , getShippingFee);
 
 module.exports = router;

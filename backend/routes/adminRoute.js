@@ -1,6 +1,6 @@
 const express = require("express");
-const { protect } = require("../middleware/authMiddleware");
-const {loginAsAdmin, getAllUser, deleteProduct , getAllProducts, editProduct, getAllOrders, createProduct, editOrderStatus} = require("../controllers/adminController");
+const { protect, protectAdmin} = require("../middleware/authMiddleware");
+const {loginAsAdmin, getAllUser, deleteProduct , getAllProducts, editProduct, getAllOrders, createProduct, editOrderStatus } = require("../controllers/adminController");
 const multer = require("multer");
 const path = require("path");
 
@@ -17,18 +17,12 @@ const upload = multer({ storage: storage });
 const router = express.Router();
 
 router.post('/login' , loginAsAdmin);
-router.get("/get-users" , getAllUser);
-router.post("/product-create" , upload.single('image'), createProduct);
+router.get("/get-users", protectAdmin , getAllUser);
+router.post("/product-create",protectAdmin , upload.single('image'), createProduct);
 router.get("/get-products" , getAllProducts);
-router.put("/edit-product", upload.single('image') , editProduct);
-router.delete("/product" , deleteProduct);
-router.get("/get-orders" , getAllOrders);
-router.put("/edit-order-status" , editOrderStatus);
-
-// router.put("/update", protect , updateCart);
-// router.get("/province", protect , getProvince);
-// router.get("/district", protect , getDistrict);
-// router.get("/ward", protect , getWard);
-// router.get("/caculateShippingFree", protect , getShippingFee);
+router.put("/edit-product",protectAdmin, upload.single('image') , editProduct);
+router.delete("/product",protectAdmin , deleteProduct);
+router.get("/get-orders", protectAdmin , getAllOrders);
+router.put("/change-status", protectAdmin , editOrderStatus);
 
 module.exports = router;

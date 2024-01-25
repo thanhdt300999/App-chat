@@ -14,8 +14,20 @@ const ghnRequester = axios.create({
   baseURL: 'https://dev-online-gateway.ghn.vn'
 })
 
+const validateStock = async (productParams) => {
+
+  const product = await Product.findById(productParams?._id).exec()
+  return product.stock > productParams?.quantity
+}
+
 const addItemsToCart = asyncHandler(async (req, res) => {
   const { cartId, products } = req.body;
+  console.log(products)
+  if (!await validateStock(products[0])) {
+    return res.status(400).json({
+      message: 'Sản phẩm đã vượt quá số lượng trong kho!'
+    })
+  }
   const userId = res.locals.decodeToken?.id
   const countCart = products?.reduce((acc, current) => {
     return acc + current?.quantity
@@ -26,7 +38,6 @@ const addItemsToCart = asyncHandler(async (req, res) => {
       quantity: item.quantity
     }
   })
-  let cart1;
   try {
     if (!cartId) {
       const cart = (await Cart.create({
@@ -34,7 +45,7 @@ const addItemsToCart = asyncHandler(async (req, res) => {
         count: countCart,
         productId: products[0]._id,
         summary: {
-          total: products[0].quantity * products[0].price
+          total: products[0].quantity * products[0].salePrice
         }
       }))
       const cart1 = await Cart.findById(cart._id).populate({
@@ -52,7 +63,7 @@ const addItemsToCart = asyncHandler(async (req, res) => {
       const cart = await Cart.findById(cartId, null , {new: true})
       let cart1
       const newCountCart = cart?.count + countCart
-      const summary = cart?.summary + products[0].quantity * products[0].price
+      const priceTotal = products[0].quantity * products[0].salePrice
       const existProduct = cart.products.find(item => item.productId == products[0]._id)
       const fakeList = [...cart.products]
       const newListProduct = fakeList.map(item => {
@@ -62,17 +73,16 @@ const addItemsToCart = asyncHandler(async (req, res) => {
         }
         return item
       })
-
       if (existProduct) {
         cart1 = await Cart.findByIdAndUpdate(cartId,
             {
               $set: {
                 'count': newCountCart,
                 "products": newListProduct,
-                'summary':  {
-                  total: summary
-                }
               },
+              $inc: {
+                "summary.total": priceTotal
+              }
             },
             {arrayFilters: [{"t.productId": products[0]._id}], new: true},
         ).populate({
@@ -94,6 +104,7 @@ const addItemsToCart = asyncHandler(async (req, res) => {
       }
     }
   } catch (e) {
+    console.log(e)
     res.status(400).json({
       message: 'Thêm sản phẩm vào giỏ hàng thất bại'
     })
@@ -121,7 +132,6 @@ const getCountCart = asyncHandler(async (req, res) => {
 
 const getCart = asyncHandler(async (req, res) => {
   const { cartId } = req.query;
-
   try {
     if(!cartId) {
       return res.json({})
@@ -134,8 +144,11 @@ const getCart = asyncHandler(async (req, res) => {
         cart
       })
     }
+    else {
+      throw Error('')
+    }
   } catch (e) {
-    res.json({
+    res.status(400).json({
       message: 'Lấy thông tin giỏ hàng thất bại'
     })
   }
@@ -173,7 +186,9 @@ const updateCart = asyncHandler(async (req, res) => {
     const cart = await Cart.findByIdAndUpdate(cartId, {
       count: countCart,
       products: products,
-      summary: summary
+      summary: {
+        total: summary
+      }
     }, {new: true}).populate({
       path: 'products.productId'
     })
@@ -183,7 +198,6 @@ const updateCart = asyncHandler(async (req, res) => {
       })
     }
   } catch (e) {
-    console.log(e)
     res.status(400).json({
       message: e
     })
@@ -278,7 +292,6 @@ const getShippingFee = asyncHandler(async (req, res) => {
       })
     }
   } catch (e) {
-    console.log(e)
     res.json({
       message: "Lấy thông tin Phường/Xã thất bại"
     })

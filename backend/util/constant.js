@@ -7,7 +7,17 @@ const StatusOrder = {
   RETURN: 5
 }
 
+const OrderNumberStatus = {
+  WAITING_SHIP: '0',
+  SHIPPING: '1',
+  RECEIVED: '2',
+  CANCELLED: '3',
+  CANT_CONTACT: '4',
+  RETURNED: '5',
+}
+
 
 module.exports = {
-  StatusOrder
+  StatusOrder,
+  OrderNumberStatus
 }

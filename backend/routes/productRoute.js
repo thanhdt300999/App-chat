@@ -1,6 +1,6 @@
 const express = require("express");
 const { protect } = require("../middleware/authMiddleware");
-const {createProduct, getAllProduct} = require("../controllers/productController");
+const {getAllAuthors, getAllProduct, getByTypes, getNewestProduct, getBestSaleProducts, getBestSalePercentProducts, getProductById} = require("../controllers/productController");
 const multer = require('multer');
 const path = require('path');
 
@@ -15,12 +15,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// router.get("/:id" , getProductById);
+router.get("/detail/:id" , getProductById);
 router.get("/" , getAllProduct);
-// router.get("/newest" , getNewestProduct);
-// router.get("/salest" , getSalestProduct);
-// router.put("/:id" , protect, editProduct);
-// router.delete("/:id" , protect, deleteProduct);
+router.get("/authors" , getAllAuthors);
+router.get("/get-by-type" , getByTypes);
+router.get("/newest" , getNewestProduct);
+router.get("/best-sale" , getBestSaleProducts);
+router.get("/best-sale-percent" , getBestSalePercentProducts);
 
 module.exports = {upload};
 

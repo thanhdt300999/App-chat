@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
-const generateToken = require("../config/generateToken");
+const {generateToken} = require("../config/generateToken");
 
 //@description     Get or Search all users
 //@route           GET /api/user?search=
@@ -75,4 +75,20 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, registerUser, authUser };
+
+const getCartId = asyncHandler(async (req, res) => {
+  try {
+    const userId = res.locals.decodeToken?.id
+    const user = await User.findOne({ _id: userId });
+
+    res.json({
+      cartId: user?.cartId || null
+    })
+  } catch (e) {
+    res.status(400).json({
+      message: "Lấy thông tin giỏ hàng thất bại"
+    })
+  }
+});
+
+module.exports = { getCartId, registerUser, authUser };

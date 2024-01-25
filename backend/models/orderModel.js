@@ -3,6 +3,13 @@ const mongoose = require("mongoose");
 const orderModel = new mongoose.Schema(
     {
       status: {type: String},
+      checkoutSession: {
+        type: String
+      },
+      type:{
+        type: String,
+        required: true
+      },
       orderId: {
         type: Number,
         default: 1
